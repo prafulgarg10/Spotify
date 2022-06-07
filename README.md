@@ -1,10 +1,10 @@
 # Spotify
-cd Client
-npm install
-npm start
+cd Client<br>
+npm install<br>
+npm start<br>
 
 ------------
 
-cd Server
-npm install
+cd Server<br>
+npm install<br>
 node index.js

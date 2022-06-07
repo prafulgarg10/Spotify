@@ -1,5 +1,5 @@
 # Spotify
-#Execute following commands
+# Execute following commands
 cd Client<br>
 npm install<br>
 npm start<br>

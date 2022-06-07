@@ -2,8 +2,12 @@ import { Container, Button, Row, Col, Table, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Axios from "axios";
+import { useLocation } from "react-router-dom";
+import NavBar from "./NavBar";
+import Rating from "./Rating";
 function Song() {
     const [list, setList] = useState([]);
+    const location = useLocation();
     useEffect(() => {
         Axios.get("http://localhost:3001/song").then((response) => {
             setList(response.data);
@@ -11,10 +15,11 @@ function Song() {
     }, []);
     return (
         <div>
+            <NavBar user={location.state.name}/>
             <Container className='mt-3'>
                 <Row>
                     <Col><h4>Top 10 Songs</h4></Col>
-                    <Col style={{ 'display': 'flex', 'justifyContent': 'end' }}><Link to="/AddSong"><Button variant="secondary">+ Add Songs</Button></Link></Col>
+                    <Col style={{ 'display': 'flex', 'justifyContent': 'end' }}><Link to="/AddSong" state={{Email: location.state.name}}><Button variant="secondary">+ Add Songs</Button></Link></Col>
                 </Row>
             </Container>
             <Container className='mt-3'>
@@ -38,13 +43,14 @@ function Song() {
                                 <td>{items.SName}</td>
                                 <td>{items.DOR.substring(0,10)}</td>
                                 <td>{items.AName}</td>
-                                <td>3 Star</td>
+                                <td>{items.Rating}</td>
                             </tr>
                             );
                         })}
                     </tbody>
                 </Table>
             </Container>
+            <Rating user={location.state.name}/>
         </div>
     );
 }

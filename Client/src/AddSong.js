@@ -1,16 +1,25 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container, Button, Modal } from "react-bootstrap";
 import AddArtist from "./file/AddArtist";
 import Axios from "axios";
+import { useLocation } from "react-router-dom";
+import NavBar from "./file/NavBar";
 
 function AddSong() {
     const [show, setShow] = useState(false);
+    const location = useLocation();
+    const [artist,setArtist] = useState([]);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const nameRef = useRef();
     const dateRef = useRef();
     const artworkRef = useRef();
     const artistRef = useRef();
+    useEffect(()=>{
+        Axios.get("http://localhost:3001/artist_name").then((response) => {
+            setArtist(response.data);
+        });
+    },[]);
     function clickHandler(event) {
         event.preventDefault();
         const enteredName = nameRef.current.value;
@@ -23,12 +32,13 @@ function AddSong() {
             Cover: enteredArtwork,
             Artist: enteredArtist
         }
-        Axios.post("http://localhost:3001/add", addData).then((res) => {
+        Axios.post("http://localhost:3001/add", addData).then((res,err) => {
             console.log(res);
         });
     }
     return (
         <div>
+            <NavBar user={location.state.Email}/>
             <Container className="mt-3">
                 <h4>Adding a new song</h4>
                 <form action="/add" method="post" onSubmit={clickHandler} className="col-9 mt-3">
@@ -55,8 +65,13 @@ function AddSong() {
                         <div className="col-sm-8">
                             <select class="form-select" id="artist" required ref={artistRef}>
                                 <option selected disabled value="">Search..</option>
-                                <option>Arijit Singh</option>
-                                <option>Aanshik Garg</option>
+                                {
+                                    artist.map((artists) => {
+                                        return(
+                                            <option>{artists.AName}</option>
+                                        );
+                                    })
+                                }
                             </select>
                         </div>
                         <div className="col-sm-2" style={{ 'display': 'flex', 'justifyContent': 'right' }}>

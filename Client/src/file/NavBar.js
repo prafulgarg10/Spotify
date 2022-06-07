@@ -1,15 +1,15 @@
 import {Button, Navbar, Nav, Container, Dropdown} from 'react-bootstrap';
-function NavBar(){
+function NavBar({user}){
     return(
         <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/">Spotify</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="#">Home</Nav.Link>
           </Nav>
           <Dropdown style={{ 'width': 100 }}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
-              Name
+             {user}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item href="#/action-1">Login</Dropdown.Item>

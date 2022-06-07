@@ -58,7 +58,7 @@ app.post('/addArtist', urlencodedParser, (req, res) => {
 });
 
 app.get('/song',urlencodedParser,(req,res) => {
-    var sql = `SELECT Songs.Cover,Songs.DOR,Songs.SName,Sing.AName FROM Songs INNER JOIN Sing ON Songs.SName = Sing.SName;`;
+    var sql = `SELECT Songs.Cover,Songs.DOR,Songs.SName,Sing.AName,Rates.Rating FROM Songs INNER JOIN Sing ON Songs.SName = Sing.SName LEFT JOIN (select avg(Rating) as Rating, SName from Rate group by SName) as Rates on Rates.SName=Songs.SName;`;
     con.query(sql, function (err, result) {
         if(err){
             throw err;
@@ -75,4 +75,54 @@ app.get('/artist',urlencodedParser,(req,res) => {
         res.send(result);
     });
 })
+app.get('/artist_name',urlencodedParser,(req,res) => {
+    var sql = `SELECT AName from Artist;`;
+    con.query(sql, function (err, result) {
+        if(err){
+            throw err;
+        }
+        res.send(result);
+    });
+})
+app.get('/song_name',urlencodedParser,(req,res) => {
+    var sql = `SELECT SName from Songs;`;
+    con.query(sql, function (err, result) {
+        if(err){
+            throw err;
+        }
+        res.send(result);
+    });
+})
+app.post('/rate', urlencodedParser, (req, res) => {
+    response = {
+        SName: req.body.SName,
+        Email: req.body.Email,
+        Rating: req.body.Rating
+      };
+    var sql = `insert into Rate values ("${response.Email}","${response.SName}","${response.Rating}");`;
+    con.query(sql, function (err, result) {
+        if(err){
+            throw err;
+        }
+        else{
+        res.send(result);
+        }
+    });
+});
+app.post('/login', urlencodedParser, (req, res) => {
+    response = {
+        Name: req.body.Name,
+        Email: req.body.Email
+      };
+    var sql = `insert into User values ("${response.Email}","${response.Name}");`;
+    con.query(sql, function (err, result) {
+        if(err){
+            console.log("User already exist");
+            res.send("User already exist");
+        }
+        else{
+        res.send("");
+        }
+    });
+});
 

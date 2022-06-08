@@ -20,12 +20,18 @@ function Rating({user}) {
             Email: user
         }
         axios.post("http://localhost:3001/rate", data).then((res,err) => {
-            console.log(res);
+            if(res.status===200){
+                document.getElementById("feed_r").style.color = "green";
+                document.getElementById("feed_r").innerHTML = "Rated, Kindly refresh to view the changes";
+                }
+        },(err)=>{
+            document.getElementById("feed_r").style.color = "red";
+            document.getElementById("feed_r").innerHTML = "Server Error";
         });
     }
     return (
         <div>
-            <Container>
+            <Container className="card pt-3">
             <h4>Select any song to rate</h4>
             <form action="/rate" method="post" onSubmit={clickHandler} className="col-9 mt-3">
                 <div className="mb-3 row">
@@ -63,6 +69,7 @@ function Rating({user}) {
                         </div>
                     </div>
             </form>
+            <div id="feed_r" style={{'display':'flex','justify-content':'center'}}></div>
             </Container>
         </div>
     );

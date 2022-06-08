@@ -15,31 +15,47 @@ function AddArtist() {
             DOB: enteredDate,
             Bio: enteredBio
         }
-        Axios.post("http://localhost:3001/addArtist", addData).then((res) => {
-            console.log(res);
-            
-
-        });
+        if((addData.Name==="")||(addData.Name.length>20)){
+            document.getElementById("feed_a").style.color = "lightgreen";
+            document.getElementById("feed_a").innerHTML = "Enter valid Name";
+        }
+        else{
+            if((addData.Bio==="")||(addData.Bio.length>50)){
+                document.getElementById("feed_a").style.color = "lightgreen";
+                document.getElementById("feed_a").innerHTML = "Enter valid Bio";
+            }
+            else{
+                Axios.post("http://localhost:3001/addArtist", addData).then((res) => {
+                    if(res.status===200){
+                        document.getElementById("feed_a").style.color = "green";
+                        document.getElementById("feed_a").innerHTML = addData.Name + " added successfully";
+                    }
+                },(err)=>{
+                    document.getElementById("feed_a").style.color = "red";
+                    document.getElementById("feed_a").innerHTML = "Server error";
+                });
+            }
+        }
     }
     return (
         <div>
-            <Container className="mt-3">
+            <Container className="mt-3">{/* I am not using form here as If I use that then the AddSong form will also be submitted */}
                 <div className="mb-3 row">
                     <label for="artist" className="col-sm-4 col-form-label">Artist Name</label>
                     <div className="col-sm-6">
-                        <input type="text" readonly className="form-control" id="artist" placeholder="Enter Artist name" ref={nameRef} />
+                        <input type="text" readonly className="form-control" id="artist" placeholder="Enter Artist name" ref={nameRef} pattern="[a-zA-Z]{1,20}" required/>
                     </div>
                 </div>
                 <div className="mb-3 row">
                     <label for="date" className="col-sm-4 col-form-label">Date of Birth</label>
                     <div className="col-sm-6">
-                        <input type="date" className="form-control" id="date" ref={dateRef} />
+                        <input type="date" className="form-control" id="date" ref={dateRef} required/>
                     </div>
                 </div>
                 <div className="mb-3 row">
                     <label for="bio" className="col-sm-4 col-form-label">Bio</label>
                     <div className="col-sm-6">
-                        <textarea class="form-control" id="bio" rows="3" ref={bioRef}></textarea>
+                        <textarea class="form-control" id="bio" rows="3" ref={bioRef} required></textarea>
                     </div>
                 </div>
                 <div className="mb-3 row">
@@ -48,6 +64,7 @@ function AddArtist() {
                         <input type="submit" value="Add Artist" className="btn-success" onClick={clickHandlerArtist} />
                     </div>
                 </div>
+                <div id="feed_a" style={{'display':'flex','justify-content':'center'}}></div>
             </Container>
         </div>
     );

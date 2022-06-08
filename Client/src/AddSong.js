@@ -32,8 +32,14 @@ function AddSong() {
             Cover: enteredArtwork,
             Artist: enteredArtist
         }
-        Axios.post("http://localhost:3001/add", addData).then((res,err) => {
-            console.log(res);
+        Axios.post("http://localhost:3001/add", addData).then((res) => {
+            if(res.status===200){
+            document.getElementById("feed_s").style.color = "green";
+            document.getElementById("feed_s").innerHTML = addData.Name + " added successfully";
+            }
+        },(err)=>{
+            document.getElementById("feed_s").style.color = "red";
+            document.getElementById("feed_s").innerHTML = "Server Error";
         });
     }
     return (
@@ -45,19 +51,19 @@ function AddSong() {
                     <div className="mb-3 row">
                         <label for="song" className="col-sm-2 col-form-label">Song Name</label>
                         <div className="col-sm-10">
-                            <input type="text" readonly className="form-control" id="song" placeholder="Enter Song name" ref={nameRef} />
+                            <input type="text" readonly className="form-control" id="song" placeholder="Enter Song name" ref={nameRef} pattern="([a-zA-Z\s]){1,30}" required/>
                         </div>
                     </div>
                     <div className="mb-3 row">
                         <label for="date" className="col-sm-2 col-form-label">Date Released</label>
                         <div className="col-sm-10">
-                            <input type="date" className="form-control" id="date" ref={dateRef} />
+                            <input type="date" className="form-control" id="date" ref={dateRef} required/>
                         </div>
                     </div>
                     <div className="mb-3 row">
                         <label for="artwork" className="col-sm-2 col-form-label">Artwork</label>
                         <div className="col-sm-10">
-                            <input type="file" className="form-control" id="artwork" ref={artworkRef} />
+                            <input type="file" className="form-control" id="artwork" ref={artworkRef} required/>
                         </div>
                     </div>
                     <div className="mb-3 row">
@@ -99,6 +105,7 @@ function AddSong() {
                     </div>
                 </form>
             </Container>
+            <div id="feed_s" style={{'display':'flex','justify-content':'center'}}></div>
         </div>
     );
 }

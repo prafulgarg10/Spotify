@@ -58,7 +58,7 @@ app.post('/addArtist', urlencodedParser, (req, res) => {
 });
 
 app.get('/song',urlencodedParser,(req,res) => {
-    var sql = `SELECT Songs.Cover,Songs.DOR,Songs.SName,Sing.AName,Rates.Rating FROM Songs INNER JOIN Sing ON Songs.SName = Sing.SName LEFT JOIN (select avg(Rating) as Rating, SName from Rate group by SName) as Rates on Rates.SName=Songs.SName;`;
+    var sql = `SELECT Songs.Cover,Songs.DOR,Songs.SName,Sing.AName,Rates.Rating FROM Songs INNER JOIN Sing ON Songs.SName = Sing.SName LEFT JOIN (select avg(Rating) as Rating, SName from Rate group by SName) as Rates on Rates.SName=Songs.SName order by Rates.Rating desc limit 10;`;
     con.query(sql, function (err, result) {
         if(err){
             throw err;
@@ -67,7 +67,7 @@ app.get('/song',urlencodedParser,(req,res) => {
     });
 })
 app.get('/artist',urlencodedParser,(req,res) => {
-    var sql = `SELECT Artist.AName,Artist.DOB,Sing.SName FROM Artist LEFT JOIN Sing ON Artist.AName = Sing.AName;`;
+    var sql = `SELECT Artist.AName,Artist.DOB,Sing.SName FROM Artist LEFT JOIN Sing ON Artist.AName = Sing.AName LEFT JOIN (select avg(Rating) as Rating, SName from Rate group by SName) as Rates on Rates.SName=Sing.SName order by Rates.Rating desc limit 10;`;
     con.query(sql, function (err, result) {
         if(err){
             throw err;

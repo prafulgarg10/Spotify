@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `Artist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Artist` (
-  `Bio` varchar(50) DEFAULT NULL,
+  `Bio` varchar(200) DEFAULT NULL,
   `DOB` date DEFAULT NULL,
   `AName` char(20) NOT NULL,
   PRIMARY KEY (`AName`)
@@ -36,7 +36,7 @@ CREATE TABLE `Artist` (
 
 LOCK TABLES `Artist` WRITE;
 /*!40000 ALTER TABLE `Artist` DISABLE KEYS */;
-INSERT INTO `Artist` VALUES ('New Singer','2022-06-01','Aanshik Garg'),('New Singer with different ability','2022-06-02','Apoorv'),('He is a nice Singer','2021-04-21','Praful Garg');
+INSERT INTO `Artist` VALUES ('Arijit Singh is an Indian singer and music composer','1987-04-25','Arijit Singh'),('Arijit Singh is an Indian singer and music composer','1987-04-25','Arijit Singh 1'),('Arijit Singh is an Indian singer and music composer','1987-04-25','Arijit Singh 2'),('Arijit Singh is an Indian singer and music composer','1987-04-25','Arijit Singh 3'),('Armaan Malik is an Indian singer, songwriter.','1995-06-22','Armaan Malik'),('Armaan Malik is an Indian singer, songwriter.','1995-06-22','Armaan Malik 1'),('Armaan Malik is an Indian singer, songwriter.','1995-06-22','Armaan Malik 2'),('Armaan Malik is an Indian singer, songwriter.','1995-06-22','Armaan Malik 3'),('Shreya Ghoshal is an Indian singer and television personality.','1984-03-12','Shreya Ghoshal'),('Shreya Ghoshal is an Indian singer and television personality.','1984-03-12','Shreya Ghoshal 1'),('Shreya Ghoshal is an Indian singer and television personality.','1984-03-12','Shreya Ghoshal 2'),('Shreya Ghoshal is an Indian singer and television personality.','1984-03-12','Shreya Ghoshal 3');
 /*!40000 ALTER TABLE `Artist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,6 +64,7 @@ CREATE TABLE `Rate` (
 
 LOCK TABLES `Rate` WRITE;
 /*!40000 ALTER TABLE `Rate` DISABLE KEYS */;
+INSERT INTO `Rate` VALUES ('abc@gmail.com','Agar Tum Saath Ho',5),('abc@gmail.com','De Taali',4),('abc@gmail.com','Dhokha',3),('abc1@gmail.com','Dhokha',4);
 /*!40000 ALTER TABLE `Rate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +91,7 @@ CREATE TABLE `Sing` (
 
 LOCK TABLES `Sing` WRITE;
 /*!40000 ALTER TABLE `Sing` DISABLE KEYS */;
-INSERT INTO `Sing` VALUES ('Aanshik Garg','Ab Tumhare hawale watan'),('Praful Garg','Dil mein ho tum');
+INSERT INTO `Sing` VALUES ('Arijit Singh','Agar Tum Saath Ho'),('Arijit Singh 1','Dhokha'),('Arijit Singh','Mere Yaara'),('Shreya Ghoshal','Pal'),('Armaan Malik','Rehna Tere Pass'),('Arijit Singh 3','Soch Liya'),('Armaan Malik','Soch Liya'),('Armaan Malik','Tum Aaogey'),('Arijit Singh 2','Tum Hi Ho'),('Shreya Ghoshal','You');
 /*!40000 ALTER TABLE `Sing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +116,7 @@ CREATE TABLE `Songs` (
 
 LOCK TABLES `Songs` WRITE;
 /*!40000 ALTER TABLE `Songs` DISABLE KEYS */;
-INSERT INTO `Songs` VALUES ('C:fakepathScreenshot 2022-05-28 at 10.35.08 AM.png','2022-06-03','Ab Tumhare hawale watan'),('C:fakepathScreenshot 2022-02-26 at 3.51.30 PM.png','2022-06-03','Ab Tumhare hawale watan sathio'),('https://google.com','2021-04-21','Dil mein ho tum');
+INSERT INTO `Songs` VALUES ('https://google.com','2014-05-01','Agar Tum Saath Ho'),('https://google.com','2014-05-01','De Taali'),('https://google.com','2014-05-01','Dhokha'),('https://google.com','2014-05-01','Gulabi'),('https://google.com','2014-05-01','Mere Yaara'),('https://google.com','2014-05-01','Muskurane Ki Wajah'),('https://google.com','2014-05-01','Pal'),('https://google.com','2014-05-01','Rehna Tere Pass'),('https://google.com','2014-05-01','Soch Liya'),('https://google.com','2014-05-01','Tum Aaogey'),('https://google.com','2014-05-01','Tum Hi Ho'),('https://google.com','2014-05-01','You');
 /*!40000 ALTER TABLE `Songs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,6 +140,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
+INSERT INTO `User` VALUES ('abc@gmail.com','Praful'),('abc1@gmail.com','Garg');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -151,4 +153,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-07 17:05:12
+-- Dump completed on 2022-06-08 11:20:03
